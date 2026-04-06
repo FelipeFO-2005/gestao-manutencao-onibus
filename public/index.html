@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Oficina de Ônibus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+<h1 class="mb-4 text-center">🚌 Painel de Oficina</h1>
+
+<form id="form" class="row g-2 mb-4">
+    <input class="form-control col" placeholder="Número" id="numero" required>
+    <input class="form-control col" placeholder="Modelo" id="modelo" required>
+    <input class="form-control col" placeholder="Serviço" id="servico" required>
+
+    <select class="form-control col" id="status">
+        <option>Aguardando</option>
+        <option>Em manutenção</option>
+        <option>Finalizado</option>
+    </select>
+
+    <button class="btn btn-primary col-2">Adicionar</button>
+</form>
+
+<table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Número</th>
+            <th>Modelo</th>
+            <th>Serviço</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+</table>
+
+<div class="text-center">
+    <span id="pagina"></span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
