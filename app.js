@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS onibus (
 
 app.get("/api/onibus", (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = 5;
+    const limit = 7;
     const offset = (page - 1) * limit;
 
     db.all("SELECT * FROM onibus LIMIT ? OFFSET ?", [limit, offset], (err, rows) => {
@@ -28,7 +28,7 @@ app.get("/api/onibus", (req, res) => {
                 dados: rows,
                 total: total.total,
                 pagina: page,
-                totalPaginas: Math.ceil(total.total / limit)
+                totalPaginas: Math.max(1, Math.ceil(total.total / limit))
             });
         });
     });
@@ -51,11 +51,13 @@ app.delete("/api/onibus/:id", (req, res) => {
 });
 
 app.put("/api/onibus/:id", (req, res) => {
-    const { servico, status } = req.body;
+    const { numero, modelo, servico, status } = req.body;
 
     db.run(
-        "UPDATE onibus SET servico = ?, status = ? WHERE id = ?",
-        [servico, status, req.params.id],
+        `UPDATE onibus 
+         SET numero = ?, modelo = ?, servico = ?, status = ?
+         WHERE id = ?`,
+        [numero, modelo, servico, status, req.params.id],
         () => res.json({ sucesso: true })
     );
 });

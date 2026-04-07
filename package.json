@@ -1,6 +1,6 @@
 {
-  "name": "oficina-onibus-v2",
-  "version": "1.0.0",
+  "name": "oficina-onibus-atualizacao",
+  "version": "2.0.0",
   "main": "app.js",
   "dependencies": {
     "express": "^4.18.2",
