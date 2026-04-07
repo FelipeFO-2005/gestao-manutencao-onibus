@@ -45,7 +45,7 @@ button:hover{
 /* ===== TABELA ===== */
 
 table{
-    width:100%;
+    width:calc(100% - 60px);
     border-collapse:collapse;
     background:white;
     margin:0 30px;
@@ -60,7 +60,7 @@ thead{
 /* Células */
 th,td{
     padding:12px;
-    border:1px solid #ddd;
+    border:1px solid #000000;
     text-align:center;
 }
 
@@ -91,6 +91,16 @@ table select{
     justify-content:center;
     align-items:center;
     gap:15px;
+}
+
+/* BOTÕES DA PAGINAÇÃO */
+.paginacao button{
+    background:#0d6efd; /* 🔵 cor azul */
+    color:white;
+}
+
+.paginacao button:hover{
+    background:#0b5ed7;
 }
 
 /* ===== BARRA SUPERIOR ===== */
