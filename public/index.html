@@ -1,51 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
+    <!-- Título da página -->
     <title>TCGL</title>
-    <link
-        rel="icon"
-        href="assets/images/logo.png"
-        type="image/x-icon"
-    >
+
+    <!-- Ícone da aba do navegador -->
+    <link rel="icon" href="assets/images/logo.png" type="image/x-icon">
+
+    <!-- Configurações básicas -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS principal -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
+<!-- ===== BARRA SUPERIOR ===== -->
 <header class="topo">
 
+    <!-- Logo da empresa -->
     <img src="assets/images/logo.png" class="logo">
 
 </header>
 
+<!-- ===== FORMULÁRIO DE CADASTRO ===== -->
 <form id="form">
-    <input placeholder="Número" id="numero" required>
+
+    <!-- Prefixo do ônibus -->
+    <input placeholder="Prefixo" id="numero" required>
+
+    <!-- Modelo do ônibus -->
     <input placeholder="Modelo" id="modelo" required>
+
+    <!-- Serviço executado -->
     <input placeholder="Serviço" id="servico" required>
 
+    <!-- Status da manutenção -->
     <select id="status">
         <option>Aguardando</option>
         <option>Em manutenção</option>
         <option>Finalizado</option>
     </select>
 
+    <!-- Botão de cadastro -->
     <button class="btn-add">Adicionar</button>
 </form>
 
+<!-- ===== TABELA DE ÔNIBUS ===== -->
 <table>
     <thead>
         <tr>
-            <th>Número</th>
+            <th>Prefixo</th>
             <th>Modelo</th>
             <th>Serviço</th>
             <th>Status</th>
             <th>Ações</th>
         </tr>
     </thead>
+
+    <!-- Dados carregados via JavaScript -->
     <tbody id="tabela"></tbody>
 </table>
 
+<!-- ===== PAGINAÇÃO ===== -->
 <div class="paginacao">
 
     <button onclick="paginaAnterior()">⬅ Anterior</button>
@@ -56,6 +76,8 @@
 
 </div>
 
+<!-- Script principal -->
 <script src="assets/js/script.js"></script>
+
 </body>
 </html>
