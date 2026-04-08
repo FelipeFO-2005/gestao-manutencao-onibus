@@ -1,20 +1,66 @@
-/* ===== ESTILO GLOBAL ===== */
+/* ===== Global ===== */
 body{
     font-family: Arial, Helvetica, sans-serif;
     background:#f4f6f8;
     margin:0;
-    padding:0;
 }
 
-/* ===== FORMULÁRIO ===== */
+
+/* ===== Barra superior ===== */
+.topo{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:80px;
+    background:#0d6efd;
+    padding:10px 20px;
+}
+
+/* Logo */
+.logo{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid white;
+}
+
+/* Título*/
+.titulo{
+    color:#000;
+    margin:auto;
+    font-size:40px;
+}
+
+
+/* ===== Botão esconder/mostrar ===== */
+.btn-eye{
+    background:transparent;
+    border:none;
+    font-size:22px;
+    cursor:pointer;
+    color:#000;
+}
+
+.btn-eye:hover{
+    opacity:0.8;
+}
+
+
+/* ===== Container principal ===== */
+.conteudo{
+    margin-top:20px;
+}
+
+
+/* ===== Formulário ===== */
 form{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-    margin:110px 30px 25px 30px;
+    margin:0 30px 25px 30px;
 }
 
-/* Inputs e selects */
 form input,
 form select{
     padding:10px;
@@ -23,7 +69,8 @@ form select{
     flex:1;
 }
 
-/* Botões padrão */
+
+/* ===== Botões ===== */
 button{
     padding:10px 15px;
     border:none;
@@ -36,14 +83,24 @@ button:hover{
     opacity:0.9;
 }
 
+button:active{
+    transform:scale(0.97);
+}
+
 /* Botão adicionar */
 .btn-add{
     background:#0d6efd;
     color:white;
 }
 
-/* ===== TABELA ===== */
+/* Botão excluir */
+.btn-delete{
+    background:#dc3545;
+    color:white;
+}
 
+
+/* ===== TABELA ===== */
 table{
     width:calc(100% - 60px);
     border-collapse:collapse;
@@ -51,7 +108,7 @@ table{
     margin:0 30px;
 }
 
-/* BARRA SUPERIOR DA TABELA */
+/* Cabeçalho */
 thead{
     background:#0d6efd;
     color:white;
@@ -60,19 +117,14 @@ thead{
 /* Células */
 th,td{
     padding:12px;
-    border:1px solid #000000;
+    border:1px solid #ddd;
     text-align:center;
+    vertical-align:middle;
 }
 
 /* Linhas alternadas */
 tbody tr:nth-child(even){
     background:#f2f2f2;
-}
-
-/* Botão excluir */
-.btn-delete{
-    background:#dc3545;
-    color:white;
 }
 
 /* Inputs da edição */
@@ -82,7 +134,17 @@ table select{
     padding:6px;
     border-radius:4px;
     border:1px solid #ccc;
+    box-sizing:border-box;
+    text-align:center;
 }
+
+/* Largura das colunas */
+th:nth-child(1), td:nth-child(1){ width:15%; }
+th:nth-child(2), td:nth-child(2){ width:20%; }
+th:nth-child(3), td:nth-child(3){ width:30%; }
+th:nth-child(4), td:nth-child(4){ width:20%; }
+th:nth-child(5), td:nth-child(5){ width:15%; }
+
 
 /* ===== PAGINAÇÃO ===== */
 .paginacao{
@@ -93,35 +155,7 @@ table select{
     gap:15px;
 }
 
-/* BOTÕES DA PAGINAÇÃO */
 .paginacao button{
-    background:#0d6efd; /* 🔵 cor azul */
-    color:white;
-}
-
-.paginacao button:hover{
-    background:#0b5ed7;
-}
-
-/* ===== BARRA SUPERIOR ===== */
-.topo{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:80px;
     background:#0d6efd;
-    display:flex;
-    align-items:center;
-    padding:10px 20px;
-    z-index:1000;
-}
-
-/* Logo redonda */
-.logo{
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid white;
+    color:white;
 }

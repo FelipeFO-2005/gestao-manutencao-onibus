@@ -1,37 +1,50 @@
-// Página atual da paginação
+// ===== Controle do Formulário =====
+const toggleBtn = document.getElementById("toggleFormBtn");
+const formCadastro = document.getElementById("form");
+
+let formVisivel = true;
+
+toggleBtn.addEventListener("click", () => {
+    formVisivel = !formVisivel;
+    formCadastro.style.display = formVisivel ? "" : "none";
+});
+
+
+// ===== Paginação =====
 let paginaAtual = 1;
-
-// Total de páginas vindas do backend
 let totalPaginas = 1;
-
-// Controla se usuário está editando
 let editando = false;
 
-// Define cor do status
+
+// ===== Cache DOM =====
+const tabela = document.getElementById("tabela");
+const paginaTexto = document.getElementById("pagina");
+
+
+// ===== Cor do status =====
 function corStatus(status){
-    if(status==="Finalizado") return "green";
-    if(status==="Em manutenção") return "orange";
+    if(status === "Finalizado") return "green";
+    if(status === "Em manutenção") return "orange";
     return "red";
 }
 
-// ===== CARREGAR ÔNIBUS =====
+
+// ===== Carregar ônibus =====
 async function carregarOnibus(){
 
-    // evita atualização enquanto edita
     if(editando) return;
 
     const resposta = await fetch(`/api/onibus?page=${paginaAtual}`);
     const dados = await resposta.json();
 
-    const tabela = document.getElementById("tabela");
-    tabela.innerHTML="";
+    let html = "";
 
-    // monta tabela dinamicamente
-    dados.dados.forEach(onibus=>{
-        tabela.innerHTML+=`
+    dados.dados.forEach(onibus => {
+
+        html += `
         <tr>
-            <td>${onibus.numero}</td>
-            <td>${onibus.modelo}</td>
+            <td>${onibus.prefixo}</td>
+            <td>${onibus.responsavel}</td>
             <td>${onibus.servico}</td>
 
             <td style="color:${corStatus(onibus.status)};font-weight:bold;">
@@ -45,55 +58,70 @@ async function carregarOnibus(){
         </tr>`;
     });
 
-    totalPaginas=dados.totalPaginas;
+    tabela.innerHTML = html;
 
-    document.getElementById("pagina").innerText=
+    totalPaginas = dados.totalPaginas;
+
+    paginaTexto.innerText =
         `Página ${paginaAtual} de ${totalPaginas}`;
 }
 
-// ===== CADASTRAR ÔNIBUS =====
-document.getElementById("form").onsubmit=async(e)=>{
+
+// ===== Cadastrar =====
+document.getElementById("form").onsubmit = async (e)=>{
+
     e.preventDefault();
 
-    const numero=document.getElementById("numero").value;
-    const modelo=document.getElementById("modelo").value;
-    const servico=document.getElementById("servico").value;
-    const status=document.getElementById("status").value;
+    const prefixo = document.getElementById("prefixo").value;
+    const responsavel = document.getElementById("responsavel").value;
+    const servico = document.getElementById("servico").value;
+    const status = document.getElementById("status").value;
 
     await fetch("/api/onibus",{
         method:"POST",
         headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({numero,modelo,servico,status})
+        body:JSON.stringify({
+            prefixo,
+            responsavel,
+            servico,
+            status
+        })
     });
 
     e.target.reset();
     carregarOnibus();
 };
 
-// ===== EXCLUIR =====
-async function excluirOnibus(id){
-    if(!confirm("Excluir ônibus?")) return;
 
-    await fetch(`/api/onibus/${id}`,{method:"DELETE"});
+// ===== Excluir =====
+async function excluirOnibus(id){
+
+    if(!confirm("Excluir registro?")) return;
+
+    await fetch(`/api/onibus/${id}`,{
+        method:"DELETE"
+    });
+
     carregarOnibus();
 }
 
-// ===== EDITAR =====
+
+// ===== Editar =====
 function editarOnibus(id,botao){
 
     if(editando) return;
-    editando=true;
+    editando = true;
 
-    const linha=botao.closest("tr");
+    const linha = botao.closest("tr");
 
-    const numero=linha.children[0].innerText;
-    const modelo=linha.children[1].innerText;
-    const servico=linha.children[2].innerText;
-    const status=linha.children[3].innerText;
+    const prefixo = linha.children[0].innerText;
+    const responsavel = linha.children[1].innerText;
+    const servico = linha.children[2].innerText;
+    const status = linha.children[3].innerText;
 
-    linha.innerHTML=`
-        <td><input value="${numero}"></td>
-        <td><input value="${modelo}"></td>
+    linha.innerHTML = `
+        <td><input value="${prefixo}"></td>
+        <td><input value="${responsavel}"></td>
         <td><input value="${servico}"></td>
 
         <td>
@@ -109,56 +137,63 @@ function editarOnibus(id,botao){
         </td>`;
 }
 
-// ===== SALVAR EDIÇÃO =====
+
+// ===== Salvar edição =====
 async function salvarEdicao(id,botao){
 
-    const linha=botao.closest("tr");
+    const linha = botao.closest("tr");
 
-    const numero=linha.children[0].querySelector("input").value;
-    const modelo=linha.children[1].querySelector("input").value;
-    const servico=linha.children[2].querySelector("input").value;
-    const status=linha.children[3].querySelector("select").value;
+    const prefixo = linha.children[0].querySelector("input").value;
+    const responsavel = linha.children[1].querySelector("input").value;
+    const servico = linha.children[2].querySelector("input").value;
+    const status = linha.children[3].querySelector("select").value;
 
     await fetch(`/api/onibus/${id}`,{
         method:"PUT",
         headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({numero,modelo,servico,status})
+        body:JSON.stringify({
+            prefixo,
+            responsavel,
+            servico,
+            status
+        })
     });
 
-    editando=false;
+    editando = false;
     carregarOnibus();
 }
 
-// ===== AUTO TROCA DE PÁGINA =====
-setInterval(async()=>{
+
+// ===== Troca automática =====
+setInterval(()=>{
 
     if(editando) return;
 
-    const res=await fetch(`/api/onibus?page=${paginaAtual}`);
-    const dados=await res.json();
-
-    paginaAtual=
-        paginaAtual<dados.totalPaginas
-        ?paginaAtual+1
-        :1;
+    paginaAtual =
+        paginaAtual < totalPaginas
+        ? paginaAtual + 1
+        : 1;
 
     carregarOnibus();
 
 },15000);
 
-// ===== PAGINAÇÃO MANUAL =====
+
+// ===== Paginação manual =====
 function proximaPagina(){
-    if(paginaAtual<totalPaginas){
+    if(paginaAtual < totalPaginas){
         paginaAtual++;
         carregarOnibus();
     }
 }
 
 function paginaAnterior(){
-    if(paginaAtual>1){
+    if(paginaAtual > 1){
         paginaAtual--;
         carregarOnibus();
     }
 }
 
+
+// ===== Inicializa =====
 carregarOnibus();
