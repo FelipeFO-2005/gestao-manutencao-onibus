@@ -1,4 +1,4 @@
-// ===== Controle do Formulário =====
+// Controle do Formulário
 const toggleBtn = document.getElementById("toggleFormBtn");
 const formCadastro = document.getElementById("form");
 
@@ -10,18 +10,18 @@ toggleBtn.addEventListener("click", () => {
 });
 
 
-// ===== Paginação =====
+// Paginação
 let paginaAtual = 1;
 let totalPaginas = 1;
 let editando = false;
 
 
-// ===== Cache DOM =====
+// Cache DOM
 const tabela = document.getElementById("tabela");
 const paginaTexto = document.getElementById("pagina");
 
 
-// ===== Cor do status =====
+// Cor do status
 function corStatus(status){
     if(status === "Finalizado") return "green";
     if(status === "Em manutenção") return "orange";
@@ -29,7 +29,7 @@ function corStatus(status){
 }
 
 
-// ===== Carregar ônibus =====
+// Carregar ônibus
 async function carregarOnibus(){
 
     if(editando) return;
@@ -67,7 +67,7 @@ async function carregarOnibus(){
 }
 
 
-// ===== Cadastrar =====
+// Cadastrar
 document.getElementById("form").onsubmit = async (e)=>{
 
     e.preventDefault();
@@ -93,7 +93,7 @@ document.getElementById("form").onsubmit = async (e)=>{
 };
 
 
-// ===== Excluir =====
+// Excluir
 async function excluirOnibus(id){
 
     if(!confirm("Excluir registro?")) return;
@@ -106,7 +106,7 @@ async function excluirOnibus(id){
 }
 
 
-// ===== Editar =====
+// Editar
 function editarOnibus(id,botao){
 
     if(editando) return;
@@ -138,7 +138,7 @@ function editarOnibus(id,botao){
 }
 
 
-// ===== Salvar edição =====
+// Salvar edição
 async function salvarEdicao(id,botao){
 
     const linha = botao.closest("tr");
@@ -164,7 +164,7 @@ async function salvarEdicao(id,botao){
 }
 
 
-// ===== Troca automática =====
+// Troca automática
 setInterval(()=>{
 
     if(editando) return;
@@ -176,10 +176,10 @@ setInterval(()=>{
 
     carregarOnibus();
 
-},15000);
+},10000);
 
 
-// ===== Paginação manual =====
+// Paginação manual
 function proximaPagina(){
     if(paginaAtual < totalPaginas){
         paginaAtual++;
@@ -195,5 +195,5 @@ function paginaAnterior(){
 }
 
 
-// ===== Inicializa =====
+// Inicializa
 carregarOnibus();
