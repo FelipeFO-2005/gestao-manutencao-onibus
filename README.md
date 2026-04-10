@@ -28,14 +28,14 @@ Este projeto é um sistema web desenvolvido para auxiliar no controle de manuten
 * Baixe e instale pelo site oficial: https://nodejs.org
 * Após instalar, verifique no terminal:
 
-```bash
+```CMD ou Power Shell
 node -v
 npm -v
 ```
 
 2. Instale as dependências:
 
-```bash
+```CMD ou Power Shell
 npm install
 ```
 
@@ -60,19 +60,19 @@ PORT=3000
 
 5. (Opcional) Execute o setup para criar a tabela automaticamente:
 
-```bash
+```CMD ou Power Shell
 npm run setup
 ```
 
 6. Inicie o servidor:
 
-```bash
+```CMD ou Power Shell
 npm run dev
 ```
 
 ou
 
-```bash
+```CMD ou Power Shell
 npm start
 ```
 
